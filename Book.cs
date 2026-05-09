@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Libra
 {
-    internal class Book
+    public class Book
     {
-        string Title { get; set; }
-        string Author { get; set; }
-        String ISBN { get; set; }
-        BookState Status { get; set; }
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public String ISBN { get; set; }
+        public BookState Status { get; set; } = BookState.Available;
 
-        internal Book(string title, string author, string isbn, BookState status)
+        public Book(string title, string author, string isbn, BookState status)
         {
             Title = title;
             Author = author;
@@ -33,7 +33,9 @@ namespace Libra
 
     }
 
-    enum BookState
+ 
+
+    public enum BookState
     {
         Available,
         OnLoan

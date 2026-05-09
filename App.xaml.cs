@@ -9,6 +9,13 @@ namespace Libra
     /// </summary>
     public partial class App : Application
     {
+ 
+    protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            LibraryLogic libraryLogic = new LibraryLogic();
+            LibrarianWindow librarianWindow = new LibrarianWindow(libraryLogic);
+            librarianWindow.Show();
+        }
     }
-
 }
