@@ -88,32 +88,40 @@ namespace Libra
             }
         }
 
-        private void FilterBookList(string mode, string filter)
-        {
-            var filteredBooks = new List<Book>();
-            switch (mode)
-            {
-                case "Title":
-                    filteredBooks = _libraryLogic.GetBooks().Where(b => b.Title.Contains(filter, StringComparison.OrdinalIgnoreCase)).ToList();
-                    break;
-                case "Author":
-                    filteredBooks = _libraryLogic.GetBooks().Where(b => b.Author.Contains(filter, StringComparison.OrdinalIgnoreCase)).ToList();
-                    break;
-                case "ISBN":
-                    filteredBooks = _libraryLogic.GetBooks().Where(b => b.ISBN.Contains(filter)).ToList();
-                    break;
-                default:
-                    filteredBooks = _libraryLogic.GetBooks().ToList(); 
-                    break;
-            }
-            BookListBox.ItemsSource = filteredBooks;
-            BookListBox.Items.Refresh();
-        }
+        //private void FilterBookList(string mode, string filter)
+        //{
+        //    var filteredBooks = new List<Book>();
+        //    switch (mode)
+        //    {
+        //        case "Title":
+        //            filteredBooks = _libraryLogic.GetBooks().Where(b => b.Title.Contains(filter, StringComparison.OrdinalIgnoreCase)).ToList();
+        //            break;
+        //        case "Author":
+        //            filteredBooks = _libraryLogic.GetBooks().Where(b => b.Author.Contains(filter, StringComparison.OrdinalIgnoreCase)).ToList();
+        //            break;
+        //        case "ISBN":
+        //            filteredBooks = _libraryLogic.GetBooks().Where(b => b.ISBN.Contains(filter)).ToList();
+        //            break;
+        //        default:
+        //            filteredBooks = _libraryLogic.GetBooks().ToList(); 
+        //            break;
+        //    }
+        //    BookListBox.ItemsSource = filteredBooks;
+        //    BookListBox.Items.Refresh();
+        //}
+
+        //private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    string filter = SearchTextBox.Text;
+        //    FilterBookList(MenuButton.Content.ToString(), filter);
+        //}
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string filter = SearchTextBox.Text;
-            FilterBookList(MenuButton.Content.ToString(), filter);
+            string query = SearchTextBox.Text;
+
+            BookListBox.ItemsSource = _libraryLogic.SearchBooks(query);
+            BookListBox.Items.Refresh();
         }
     }
 }

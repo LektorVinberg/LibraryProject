@@ -140,5 +140,28 @@ namespace Libra
                 books = JsonSerializer.Deserialize<List<Book>>(jsonString);
             }
         }
+
+        internal List<Book> SearchBooks(string query)
+        {
+            List<Book> result = new List<Book>();
+
+            if (string.IsNullOrWhiteSpace(query))
+                return books.ToList();
+
+            query = query.Trim();
+
+            foreach (Book b in books)
+            {
+                if (b.Title.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                    b.Author.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                    b.ISBN.Contains(query))
+                {
+                    result.Add(b);
+                }
+            }
+
+            return result;
+        }
+
     }
 }
