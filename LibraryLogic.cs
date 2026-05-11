@@ -141,7 +141,7 @@ namespace Libra
             }
         }
 
-        internal List<Book> SearchBooks(string query)
+        internal List<Book> SearchBooks(string query, string mode)
         {
             List<Book> result = new List<Book>();
 
@@ -157,12 +157,25 @@ namespace Libra
 
             foreach (Book b in books)
             {
-                if (b.Title.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                bool match = false;
+
+                if (mode == "Title" && b.Title.Contains(query, StringComparison.OrdinalIgnoreCase))
+                    match = true;
+
+                if (mode == "Author" && b.Author.Contains(query, StringComparison.OrdinalIgnoreCase))
+                    match = true;
+
+                if (mode == "ISBN" && b.ISBN.Contains(query))
+                    match = true;
+
+                if (mode == "AllFields" && (
+                    b.Title.Contains(query, StringComparison.OrdinalIgnoreCase) ||
                     b.Author.Contains(query, StringComparison.OrdinalIgnoreCase) ||
-                    b.ISBN.Contains(query))
-                {
+                    b.ISBN.Contains(query)))
+                    match = true;
+
+                if (match)
                     result.Add(b);
-                }
             }
 
             return result;

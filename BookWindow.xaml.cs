@@ -91,8 +91,9 @@ namespace Libra
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string query = SearchTextBox.Text;
+            string mode = MenuButton.Content?.ToString() ?? "AllFields";
 
-            BookListBox.ItemsSource = _libraryLogic.SearchBooks(query);
+            BookListBox.ItemsSource = _libraryLogic.SearchBooks(query, mode);
             BookListBox.Items.Refresh();
         }
     }

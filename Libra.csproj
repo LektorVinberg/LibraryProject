@@ -8,4 +8,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\books_bg.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\books_bg.png" />
+  </ItemGroup>
+
 </Project>
