@@ -150,6 +150,11 @@ namespace Libra
 
             query = query.Trim();
 
+            while (query.Contains("  "))
+            {
+                query = query.Replace("  ", " ");
+            }
+
             foreach (Book b in books)
             {
                 if (b.Title.Contains(query, StringComparison.OrdinalIgnoreCase) ||
