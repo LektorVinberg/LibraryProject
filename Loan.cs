@@ -8,10 +8,10 @@ namespace Libra
 {
     public class Loan
     {
-        private Customer customer;
+        private Customer customer;      //this attribute might be unneccessary since Loan objects should be in a list of the customer class
         private Book book;
         private DateTime dueDate;
-        private decimal lateFee = 0;
+        private decimal lateFee = 0;    //might remove this attribute and just calculate the fee when prompted instead
 
         public Customer Customer
         {
@@ -32,7 +32,7 @@ namespace Libra
             get { return dueDate; }
             set
             {
-                if (DateTime.Now < value)
+                if (DateTime.Now.Day < value.Day)
                 {
                     dueDate = value;
                 }
@@ -62,9 +62,22 @@ namespace Libra
 
         public Loan(Customer customer, Book book, DateTime dueDate)
         {
-            this.Customer = customer;
-            this.Book = book;
-            this.DueDate = dueDate;
+            Customer = customer;
+            Book = book;
+            DueDate = dueDate;
+        }
+
+        public decimal GetLateFee()
+        {
+            if (dueDate < DateTime.Now)
+            {
+                TimeSpan timeSpan = DateTime.Now - dueDate;
+                return timeSpan.Days * Globals.LATE_FEE_PER_DAY;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }
