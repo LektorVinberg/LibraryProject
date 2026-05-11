@@ -12,6 +12,7 @@ namespace Libra
     public static class Globals
     {
         public const decimal LATE_FEE_PER_DAY = 10;
+        public const int DAYS_UNTIL_DUE = 21;
     }
 
     public  class LibraryLogic
