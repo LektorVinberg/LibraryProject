@@ -10,7 +10,7 @@
         <Label x:Name="ActualCustomerLabel" Content="Borrowed books for " HorizontalAlignment="Left" Height="41" Margin="125,39,0,0" VerticalAlignment="Top" Width="465" FontSize="20"/>
         <ListBox x:Name="BorrowedBookListBox" HorizontalAlignment="Left" Height="105" Margin="125,153,0,0" VerticalAlignment="Top" Width="180" DisplayMemberPath="Title" d:ItemsSource="{d:SampleData ItemCount=5}"/>
         <Label x:Name="BorrowedBooksLabel" Content="Borrowed books" HorizontalAlignment="Left" Height="31" Margin="125,122,0,0" VerticalAlignment="Top" Width="180"/>
-        <Button x:Name="ReturnBookButton" Content="Return book" HorizontalAlignment="Left" Height="32" Margin="125,294,0,0" VerticalAlignment="Top" Width="180" Click="ReturnBookButton_Click_1"/>
+        <Button x:Name="ReturnBookButton" Content="Return book" FontSize="20" HorizontalAlignment="Left" Height="32" Margin="125,294,0,0" VerticalAlignment="Top" Width="180" Click="ReturnBookButton_Click_1"/>
         <Label x:Name="AvailableBooksLabel" Content="Available books" HorizontalAlignment="Left" Height="31" Margin="449,122,0,0" VerticalAlignment="Top" Width="190"/>
         <ListBox x:Name="AvailableBooksListBox" HorizontalAlignment="Left" Height="127" Margin="358,153,0,0" VerticalAlignment="Top" Width="358"   d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListBox.ItemTemplate>
@@ -27,8 +27,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button x:Name="ExitButton" Content="Exit" HorizontalAlignment="Left" Height="38" Margin="620,364,0,0" VerticalAlignment="Top" Width="136" Click="ExitButton_Click"/>
-        <Button x:Name="BorrowBookButton" Content="Borrow book" HorizontalAlignment="Left" Height="32" Margin="441,294,0,0" VerticalAlignment="Top" Width="214" Click="BorrowBookButton_Click"/>
+        <Button x:Name="ExitButton" Content="Exit" FontSize="20" HorizontalAlignment="Left" Height="38" Margin="620,364,0,0" VerticalAlignment="Top" Width="136" Background="#FFE7B37D" Click="ExitButton_Click"/>
+        <Button x:Name="BorrowBookButton" Content="Borrow book" FontSize="20" HorizontalAlignment="Left" Height="32" Margin="441,294,0,0" VerticalAlignment="Top" Width="214" Click="BorrowBookButton_Click"/>
 
     </Grid>
 </Window>
