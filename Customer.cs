@@ -10,18 +10,19 @@ namespace Libra
     {
         public string Name { get; set; }
         public Guid CustomerID { get; set; }
-        public List<Book> LoanedBooks { get; set; } = new List<Book>();
+        public Dictionary<Book, DateTime> LoanedBooks { get; set; }
 
         public Customer(string name)
         {
             Name = name;
             CustomerID = Guid.NewGuid();
-            LoanedBooks = new List<Book>();
+            LoanedBooks = new Dictionary<Book, DateTime>();
         }
 
         internal void AddLoan(Book book)
         {
-            LoanedBooks.Add(book);
+            LoanedBooks.Add(book, DateTime.Now);
+            Console.WriteLine("asialisjdaisdj");
         }
 
         internal void RemoveLoan(Book book)         {

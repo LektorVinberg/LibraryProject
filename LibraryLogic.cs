@@ -9,16 +9,13 @@ using System.Threading.Tasks;
 
 namespace Libra
 {
-    public static class Globals
-    {
-        public const decimal LATE_FEE_PER_DAY = 10;
-        public const int DAYS_UNTIL_DUE = 21;
-    }
-
+    
     public  class LibraryLogic
     {
-        List<Book> books;
-        List<Customer> customers;
+        private List<Book> books;
+        private List<Customer> customers;
+        private const decimal LATE_FEE_PER_DAY = 10;
+        private const double DAYS_UNTIL_DUE = 21;
 
         internal LibraryLogic()
         {
@@ -40,7 +37,7 @@ namespace Libra
             var customer = customers.FirstOrDefault(c => c.CustomerID == customerId);
             if (customer != null)
             {
-                return customer.LoanedBooks;
+                return customer.LoanedBooks.Keys.ToList();
             }
             return new List<Book>();
         }
@@ -106,15 +103,41 @@ namespace Libra
     
         internal string ReturnBook(string isbn, Guid customerId)
         {
+
             var book = books.FirstOrDefault(b => b.ISBN == isbn);
             var customer = customers.FirstOrDefault(c => c.CustomerID == customerId);
-            if (book == null) return "Book not found.";
-            if (customer == null) return "Customer not found.";
-            // Check ISBN because the list is a copy when you deserialize
-            if (!customer.LoanedBooks.Any(b => b.ISBN == isbn)) return "This book was not loaned to this customer.";
-                book.SetStatus(BookState.Available);
-            customer.RemoveLoan(book);
-            return "Book returned successfully.";
+
+            if (book == null) return "Wrong ISBN, or book is not in library";
+            if(customer != null)
+            {
+                bool loan = customer.LoanedBooks.ContainsKey(book);
+
+                if(loan)
+                {
+                    customer.LoanedBooks.Remove(book);
+                    book.SetStatus(BookState.Available);
+                    return "Book returned successfully.";
+                }
+            }
+            return "This book was not loaned to this customer.";
+
+
+            //var book = books.FirstOrDefault(b => b.ISBN == isbn);
+            //var customer = customers.FirstOrDefault(c => c.CustomerID == customerId);
+            //if (book == null) return "Book not found.";
+            //if (customer == null) return "Customer not found.";
+            //// Check ISBN because the list is a copy when you deserialize
+            //if (!customer.LoanedBooks.Any(b => b.ISBN == isbn)) return "This book was not loaned to this customer.";
+            //    book.SetStatus(BookState.Available);
+            //customer.RemoveLoan(book);
+        }
+
+        internal bool CheckIfOverdue(Book book, Customer customer)
+        {
+            customer.LoanedBooks.TryGetValue(book, out DateTime time);
+            bool overDue = time.AddSeconds(DAYS_UNTIL_DUE) <= DateTime.Now;
+
+            return overDue;
         }
 
         internal void BackupLists()

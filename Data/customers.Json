@@ -2,41 +2,21 @@
   {
     "Name": "Urrrako",
     "CustomerID": "68c8439e-7b06-4e96-969c-06052800f3ba",
-    "LoanedBooks": []
+    "LoanedBooks": {}
   },
   {
     "Name": "Astrid Lindgren",
     "CustomerID": "b2150010-0608-4e95-935f-a9b8f1f3a301",
-    "LoanedBooks": [
-      {
-        "Title": "Br\u00F6derna Lejonhj\u00E4rta",
-        "Author": "Astrid Lindgren",
-        "ISBN": "9789129688313",
-        "Status": 1
-      }
-    ]
+    "LoanedBooks": {}
   },
   {
     "Name": "Martin Augustsson",
     "CustomerID": "0920a689-75bb-4b1e-b352-ad68325f9454",
-    "LoanedBooks": []
+    "LoanedBooks": {}
   },
   {
     "Name": "Anders Persson",
     "CustomerID": "d0e1f2a3-b4c5-6789-defa-890123456789",
-    "LoanedBooks": [
-      {
-        "Title": "Sagor, hyss \u0026 \u00E4ventyr",
-        "Author": "Astrid Lindgren",
-        "ISBN": "9789129674251",
-        "Status": 1
-      },
-      {
-        "Title": "Mera sagor, hyss \u0026 \u00E4ventyr",
-        "Author": "Astrid Lindgren",
-        "ISBN": "97891296706598",
-        "Status": 1
-      }
-    ]
+    "LoanedBooks": {}
   }
 ]
