@@ -123,26 +123,26 @@ namespace Libra
             if (customers.Count > 0)
             {
                 string jsonString = JsonSerializer.Serialize(customers);
-                File.WriteAllText(@"..\..\..\customers.Json", jsonString);
+                File.WriteAllText(@"..\..\..\Data\customers.Json", jsonString);
             }
             if (books.Count > 0)
             {
                 string jsonString = JsonSerializer.Serialize(books);
-                File.WriteAllText(@"..\..\..\books.Json", jsonString);
+                File.WriteAllText(@"..\..\..\Data\books.Json", jsonString);
             }
         }
 
         internal void RetrieveLists()
         {
             // Implement restore logic here, e.g., load books and customers from a file or database
-            if (File.Exists(@"..\..\..\customers.Json"))
+            if (File.Exists(@"..\..\..\Data\customers.Json"))
             {
-                string jsonString = File.ReadAllText(@"..\..\..\customers.Json");
+                string jsonString = File.ReadAllText(@"..\..\..\Data\customers.Json");
                 customers = JsonSerializer.Deserialize<List<Customer>>(jsonString);
             }
-            if (File.Exists(@"..\..\..\books.Json"))
+            if (File.Exists(@"..\..\..\Data\books.Json"))
             {
-                string jsonString = File.ReadAllText(@"..\..\..\books.Json");
+                string jsonString = File.ReadAllText(@"..\..\..\Data\books.Json");
                 books = JsonSerializer.Deserialize<List<Book>>(jsonString);
             }
         }
