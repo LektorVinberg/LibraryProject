@@ -146,5 +146,46 @@ namespace Libra
                 books = JsonSerializer.Deserialize<List<Book>>(jsonString);
             }
         }
+
+        internal List<Book> SearchBooks(string query, string mode)
+        {
+            List<Book> result = new List<Book>();
+
+            if (string.IsNullOrWhiteSpace(query))
+                return books.ToList();
+
+            query = query.Trim();
+
+            while (query.Contains("  "))
+            {
+                query = query.Replace("  ", " ");
+            }
+
+            foreach (Book b in books)
+            {
+                bool match = false;
+
+                if (mode == "Title" && b.Title.Contains(query, StringComparison.OrdinalIgnoreCase))
+                    match = true;
+
+                if (mode == "Author" && b.Author.Contains(query, StringComparison.OrdinalIgnoreCase))
+                    match = true;
+
+                if (mode == "ISBN" && b.ISBN.Contains(query))
+                    match = true;
+
+                if (mode == "AllFields" && (
+                    b.Title.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                    b.Author.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                    b.ISBN.Contains(query)))
+                    match = true;
+
+                if (match)
+                    result.Add(b);
+            }
+
+            return result;
+        }
+
     }
 }
