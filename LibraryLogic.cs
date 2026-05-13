@@ -107,18 +107,18 @@ namespace Libra
             var book = books.FirstOrDefault(b => b.ISBN == isbn);
             var customer = customers.FirstOrDefault(c => c.CustomerID == customerId);
 
-            if (book == null) return "Wrong ISBN, or book is not in library";
-            if(customer != null)
-            {
-                bool loan = customer.LoanedBooks.ContainsKey(book);
+            if (book == null) return "Book not found";
+            if (customer == null) return "Customer not found.";
+            
+            bool loan = customer.LoanedBooks.ContainsKey(book);
 
-                if(loan)
-                {
-                    customer.LoanedBooks.Remove(book);
-                    book.SetStatus(BookState.Available);
-                    return "Book returned successfully.";
-                }
+            if (loan)
+            {
+                customer.LoanedBooks.Remove(book);
+                book.SetStatus(BookState.Available);
+                return "Book returned successfully.";
             }
+
             return "This book was not loaned to this customer.";
 
 
