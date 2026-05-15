@@ -11,6 +11,7 @@
         <Button x:Name="SaveExitButton" Content="Save and exit" HorizontalAlignment="Left" Height="48" Margin="536,70,0,0" VerticalAlignment="Top" Width="165" Click="SaveExitButton_Click"/>
         <Button x:Name="ExitButton" Content="Exit" HorizontalAlignment="Left" Height="50" Margin="536,142,0,0" VerticalAlignment="Top" Width="165" Click="Exit_Click"/>
         <Button x:Name="BookButton" Content="Book Window" HorizontalAlignment="Left" Height="54" Margin="293,64,0,0" VerticalAlignment="Top" Width="157" Click="BookButton_Click"/>
+        <Button x:Name="ReservationButton" Content="Reservation Window" HorizontalAlignment="Left" Height="48" Margin="77,142,0,0" VerticalAlignment="Top" Width="158" Click="ReservationButton_Click"/>
 
     </Grid>
 </Window>

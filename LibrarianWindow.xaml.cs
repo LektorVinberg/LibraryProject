@@ -53,5 +53,11 @@ namespace Libra
             BookWindow bookWindow = new BookWindow(_libraryLogic);
             bookWindow.ShowDialog();
         }
+
+        private void ReservationButton_Click(object sender, RoutedEventArgs e)
+        {
+            BookReservationWindow reservationWindow = new BookReservationWindow(_libraryLogic);
+            reservationWindow.ShowDialog();
+        }
     }
 }
