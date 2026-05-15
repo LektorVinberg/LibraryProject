@@ -28,6 +28,8 @@ namespace Libra
             // Fetch the library logic from the main window and retrieve the lists of books and customers
             _libraryLogic = libraryLogic;
             _libraryLogic.RetrieveLists();
+
+            GetRemindersList();
         }
 
         private void CustomerButton_Click(object sender, RoutedEventArgs e)
@@ -58,6 +60,16 @@ namespace Libra
         {
             BookReservationWindow reservationWindow = new BookReservationWindow(_libraryLogic);
             reservationWindow.ShowDialog();
+        }
+
+        private void GetRemindersList()
+        {
+            ReminderGrid.DataContext = _libraryLogic.FindOverDue();
+        }
+
+        private void RefreshReminders(object sender, RoutedEventArgs e)
+        {
+            ReminderGrid.DataContext = _libraryLogic.FindOverDue();
         }
     }
 }
