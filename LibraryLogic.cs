@@ -10,6 +10,12 @@ using System.Threading.Tasks;
 
 namespace Libra
 {
+    public static class Globals
+    {
+        public const decimal LATE_FEE_PER_DAY = 10;
+        public const int DAYS_UNTIL_DUE = 21;
+    }
+
     public  class LibraryLogic
     {
         List<Book> books;
@@ -168,8 +174,8 @@ namespace Libra
             // Implement backup logic here, e.g., save books and customers to a file or database
             if (customers.Count > 0)
             {
-                string jsonString = JsonSerializer.Serialize(customers, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(@"..\..\..\customers.Json", jsonString);
+                string jsonString = JsonSerializer.Serialize(customers);
+                File.WriteAllText(@"..\..\..\Data\customers.Json", jsonString);
             }
             if (books.Count > 0)
             {
@@ -179,7 +185,7 @@ namespace Libra
             if (reservations.Count > 0)
             {
                 string jsonString = JsonSerializer.Serialize(reservations, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(@"..\..\..\reservations.Json", jsonString);
+                File.WriteAllText(@"..\..\..\Data\reservations.Json", jsonString);
             }
 
         }
@@ -187,14 +193,14 @@ namespace Libra
         internal void RetrieveLists()
         {
             // Implement restore logic here, e.g., load books and customers from a file or database
-            if (File.Exists(@"..\..\..\customers.Json"))
+            if (File.Exists(@"..\..\..\Data\customers.Json"))
             {
-                string jsonString = File.ReadAllText(@"..\..\..\customers.Json");
+                string jsonString = File.ReadAllText(@"..\..\..\Data\customers.Json");
                 customers = JsonSerializer.Deserialize<List<Customer>>(jsonString);
             }
-            if (File.Exists(@"..\..\..\books.Json"))
+            if (File.Exists(@"..\..\..\Data\books.Json"))
             {
-                string jsonString = File.ReadAllText(@"..\..\..\books.Json");
+                string jsonString = File.ReadAllText(@"..\..\..\Data\books.Json");
                 books = JsonSerializer.Deserialize<List<Book>>(jsonString);
             }
             if (File.Exists(@"..\..\..\reservations.Json"))
@@ -203,5 +209,46 @@ namespace Libra
                 reservations = JsonSerializer.Deserialize<List<BookReservation>>(jsonString);
             }
         }
+
+        internal List<Book> SearchBooks(string query, string mode)
+        {
+            List<Book> result = new List<Book>();
+
+            if (string.IsNullOrWhiteSpace(query))
+                return books.ToList();
+
+            query = query.Trim();
+
+            while (query.Contains("  "))
+            {
+                query = query.Replace("  ", " ");
+            }
+
+            foreach (Book b in books)
+            {
+                bool match = false;
+
+                if (mode == "Title" && b.Title.Contains(query, StringComparison.OrdinalIgnoreCase))
+                    match = true;
+
+                if (mode == "Author" && b.Author.Contains(query, StringComparison.OrdinalIgnoreCase))
+                    match = true;
+
+                if (mode == "ISBN" && b.ISBN.Contains(query))
+                    match = true;
+
+                if (mode == "AllFields" && (
+                    b.Title.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                    b.Author.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                    b.ISBN.Contains(query)))
+                    match = true;
+
+                if (match)
+                    result.Add(b);
+            }
+
+            return result;
+        }
+
     }
 }

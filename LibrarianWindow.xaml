@@ -5,12 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Libra"
         mc:Ignorable="d"
-        Title="LibrarianWindow" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="CustomerButton" Content="Customer Window" HorizontalAlignment="Left" Height="54" Margin="77,64,0,0" VerticalAlignment="Top" Width="158" IsDefault="True" Click="CustomerButton_Click"/>
-        <Button x:Name="SaveExitButton" Content="Save and exit" HorizontalAlignment="Left" Height="48" Margin="536,70,0,0" VerticalAlignment="Top" Width="165" Click="SaveExitButton_Click"/>
-        <Button x:Name="ExitButton" Content="Exit" HorizontalAlignment="Left" Height="50" Margin="536,142,0,0" VerticalAlignment="Top" Width="165" Click="Exit_Click"/>
-        <Button x:Name="BookButton" Content="Book Window" HorizontalAlignment="Left" Height="54" Margin="293,64,0,0" VerticalAlignment="Top" Width="157" Click="BookButton_Click"/>
+        Title="Librarian" Height="385" Width="525">
+    <Window.Background>
+        <ImageBrush ImageSource="/Assets/books_bg.png" Stretch="UniformToFill" Opacity="0.3"/>
+    </Window.Background>
+
+    <Grid Margin="0,0,0,28">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="CustomerButton" Content="Customers" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Height="54" Margin="77,64,0,0" VerticalAlignment="Top" Width="158" IsDefault="True" Click="CustomerButton_Click"/>
+        <Button x:Name="SaveExitButton" Content="Save and exit" FontSize="20" FontWeight="Bold"  HorizontalAlignment="Left" Height="54" Margin="185,0,0,0" VerticalAlignment="Center" Width="165" Background="#a5d496" Click="SaveExitButton_Click"/>
+        <Button x:Name="ExitButton" Content="Exit" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Height="54" Margin="185,257,0,0" VerticalAlignment="Top" Width="165" Background="#FFE7B37D" Click="Exit_Click"/>
+        <Button x:Name="BookButton" Content="Books" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Height="54" Margin="293,64,0,0" VerticalAlignment="Top" Width="157" Click="BookButton_Click"/>
+
         <Button x:Name="ReservationButton" Content="Reservation Window" HorizontalAlignment="Left" Height="48" Margin="77,142,0,0" VerticalAlignment="Top" Width="158" Click="ReservationButton_Click"/>
 
     </Grid>
