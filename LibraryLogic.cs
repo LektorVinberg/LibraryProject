@@ -9,16 +9,14 @@ using System.Threading.Tasks;
 
 namespace Libra
 {
-    public static class Globals
-    {
-        public const decimal LATE_FEE_PER_DAY = 10;
-        public const int DAYS_UNTIL_DUE = 21;
-    }
 
-    public  class LibraryLogic
+    public class LibraryLogic
     {
-        List<Book> books;
-        List<Customer> customers;
+        private List<Book> books;
+        private List<Customer> customers;
+        private const decimal LATE_FEE_PER_DAY = 10;
+        private const double DAYS_UNTIL_DUE = 5;
+        public record OverDue(string Title, string Name, decimal LateFee);
 
         internal LibraryLogic()
         {
@@ -34,13 +32,13 @@ namespace Libra
         {
             return books.Where(b => b.Status == BookState.Available).ToList();
         }
-        
+
         internal List<Book> GetBorrowedBooks(Guid customerId)
         {
             var customer = customers.FirstOrDefault(c => c.CustomerID == customerId);
             if (customer != null)
             {
-                return customer.LoanedBooks;
+                return customer.LoanedBooks.Keys.ToList();
             }
             return new List<Book>();
         }
@@ -90,31 +88,81 @@ namespace Libra
         }
 
         internal string LoanBook(string isbn, Guid customerId)
-        { 
+        {
             var book = books.FirstOrDefault(b => b.ISBN == isbn);
             var customer = customers.FirstOrDefault(c => c.CustomerID == customerId);
-    
+
             if (book == null) return "Book not found.";
             if (customer == null) return "Customer not found.";
             if (book.Status != BookState.Available) return "Book is not available.";
-    
+
             book.SetStatus(BookState.OnLoan);
             customer.AddLoan(book);
             return "Book loaned successfully.";
         }
-        
-    
+
+
         internal string ReturnBook(string isbn, Guid customerId)
         {
+
             var book = books.FirstOrDefault(b => b.ISBN == isbn);
             var customer = customers.FirstOrDefault(c => c.CustomerID == customerId);
-            if (book == null) return "Book not found.";
+
+            if (book == null) return "Book not found";
             if (customer == null) return "Customer not found.";
-            // Check ISBN because the list is a copy when you deserialize
-            if (!customer.LoanedBooks.Any(b => b.ISBN == isbn)) return "This book was not loaned to this customer.";
+
+            bool loan = customer.LoanedBooks.ContainsKey(book);
+
+            if (loan)
+            {
+                customer.LoanedBooks.Remove(book);
                 book.SetStatus(BookState.Available);
-            customer.RemoveLoan(book);
-            return "Book returned successfully.";
+                return "Book returned successfully.";
+            }
+
+            return "This book was not loaned to this customer.";
+
+
+            //var book = books.FirstOrDefault(b => b.ISBN == isbn);
+            //var customer = customers.FirstOrDefault(c => c.CustomerID == customerId);
+            //if (book == null) return "Book not found.";
+            //if (customer == null) return "Customer not found.";
+            //// Check ISBN because the list is a copy when you deserialize
+            //if (!customer.LoanedBooks.Any(b => b.ISBN == isbn)) return "This book was not loaned to this customer.";
+            //    book.SetStatus(BookState.Available);
+            //customer.RemoveLoan(book);
+        }
+
+        public List<OverDue> FindOverDue()
+        {
+            List<OverDue> overDueList = new List<OverDue>();
+
+            foreach (Customer customer in customers)
+            {
+                Dictionary<Book, DateTime> loanedBooks = customer.LoanedBooks;
+
+                foreach (Book book in loanedBooks.Keys)
+                {
+                    decimal lateFee = 0;
+                    DateTime dueDate = loanedBooks[book].AddSeconds(DAYS_UNTIL_DUE);    //AddSeconds() is called instead of AddDays(). This is for demonstration purposes only.
+                    if (dueDate <= DateTime.Now)
+                    {
+
+                        lateFee = CalculateOverDueFee(dueDate);
+
+                        overDueList.Add(
+                                new OverDue(book.Title, customer.Name, lateFee)
+                            );
+                    }
+                }
+            }
+            return overDueList;
+        }
+
+        private decimal CalculateOverDueFee(DateTime dueDate)
+        {
+            TimeSpan timeSpan = DateTime.Now - dueDate;
+            return timeSpan.Seconds * LATE_FEE_PER_DAY;
         }
 
         internal void BackupLists()
@@ -186,6 +234,5 @@ namespace Libra
 
             return result;
         }
-
     }
 }
