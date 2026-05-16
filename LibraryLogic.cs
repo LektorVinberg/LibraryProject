@@ -234,5 +234,29 @@ namespace Libra
 
             return result;
         }
+
+        // Generate a report showing borrowed books
+        // and the customers who borrowed them
+        internal List<string> GetLoanReport()
+        {
+            List<string> report = new List<string>();
+
+            foreach (Customer customer in customers)
+            {
+                foreach (var loan in customer.LoanedBooks)
+                {
+                    Book book = loan.Key;
+                    DateTime loanDate = loan.Value;
+
+                    report.Add(
+                        $"Title: {book.Title} | " +
+                        $"Customer: {customer.Name} | " +
+                        $"Loan Date: {loanDate}"
+                    );
+                }
+            }
+
+            return report;
+        }
     }
 }

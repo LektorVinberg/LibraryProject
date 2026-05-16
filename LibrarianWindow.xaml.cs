@@ -65,5 +65,11 @@ namespace Libra
         {
             ReminderGrid.DataContext = _libraryLogic.FindOverDue();
         }
+
+        private void ReportsButton_Click(object sender, RoutedEventArgs e)
+        {
+            ReportWindow reportWindow = new ReportWindow(_libraryLogic);
+            reportWindow.ShowDialog();
+        }
     }
 }

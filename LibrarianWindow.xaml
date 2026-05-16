@@ -5,28 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Libra"
         mc:Ignorable="d"
-        Title="Librarian" Height="385" Width="525">
+        Title="Librarian" Height="411" Width="710">
     <Window.Background>
         <ImageBrush ImageSource="/Assets/books_bg.png" Stretch="UniformToFill" Opacity="0.3"/>
     </Window.Background>
 
-    <Grid>
+    <Grid Margin="0,0,0,-6">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" MinWidth="165.44"/>
+            <ColumnDefinition Width="Auto" MinWidth="373"/>
+            <ColumnDefinition Width="Auto" MinWidth="165.44"/>
         </Grid.ColumnDefinitions>
-        
-        <Button Grid.Row="0" Grid.Column="0" x:Name="CustomerButton" Content="Customers" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Height="54"  VerticalAlignment="Center" Width="158" IsDefault="True" Click="CustomerButton_Click"/>
-        <Button Grid.Row="1" Grid.Column="1" x:Name="SaveExitButton" Content="Save and exit" FontSize="20" FontWeight="Bold"  HorizontalAlignment="Center" Height="54" VerticalAlignment="Center" Width="165" Background="#a5d496" Click="SaveExitButton_Click"/>
-        <Button Grid.Row="1" Grid.Column="0" x:Name="ExitButton" Content="Exit" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Height="54" VerticalAlignment="Center" Width="165" Background="#FFE7B37D" Click="Exit_Click"/>
-        <Button Grid.Row="0" Grid.Column="1" x:Name="BookButton" Content="Books" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Height="54" VerticalAlignment="Center" Width="157" Click="BookButton_Click"/>
 
-        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  Width="Auto" Height="Auto">
+        <Button x:Name="CustomerButton" Content="Customers" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Height="54"  VerticalAlignment="Center" Width="158" IsDefault="True" Click="CustomerButton_Click"/>
+        <Button Grid.Row="1" Grid.Column="1" x:Name="SaveExitButton" Content="Save and exit" FontSize="20" FontWeight="Bold"  HorizontalAlignment="Center" Height="54" VerticalAlignment="Center" Width="165" Background="#a5d496" Click="SaveExitButton_Click"/>
+        <Button Grid.Row="1" x:Name="ExitButton" Content="Exit" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Height="54" VerticalAlignment="Center" Width="165" Background="#FFE7B37D" Click="Exit_Click"/>
+        <Button Grid.Column="1" x:Name="BookButton" Content="Books" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Height="54" VerticalAlignment="Center" Width="157" Click="BookButton_Click"/>
+        <Button x:Name="ReportsButton" Grid.Column="3" Grid.Row="1" Content="Reports" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Height="54" Width="84" Click="ReportsButton_Click"/>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"  Width="Auto" Height="Auto">
             <Label Content="Reminder" Background="Gray"/>
             <DataGrid x:Name="ReminderGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" Height="200">
                 <DataGrid.Columns>
@@ -37,8 +39,8 @@
             </DataGrid>
             <Button x:Name="Refresh" Grid.Row="2" Content="Refresh" Click="RefreshReminders"/>
         </StackPanel>
-        
+
 
     </Grid>
-    
+
 </Window>
