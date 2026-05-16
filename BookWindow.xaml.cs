@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,7 +24,7 @@ namespace Libra
 
         public BookWindow(LibraryLogic libraryLogic)
         {
-             _libraryLogic = libraryLogic;
+            _libraryLogic = libraryLogic;
             InitializeComponent();
             InitializeBookList();
             UpdateBookCountLabel();
@@ -31,15 +32,21 @@ namespace Libra
 
         private void AddBookButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_libraryLogic.GetBooks().Where(b => b.ISBN.Contains(BookISBNTextBox.Text)).Count() > 0)
+            ValidateTitle();
+            ValidateAuthor();
+            ValidateISBN();
+            if (ValidateTitle() && ValidateAuthor() && ValidateISBN())
             {
-                MessageBox.Show("A book with the same ISBN already exists.", "Duplicate ISBN", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }   
-            Book newBook = new Book(BookTitleTextBox.Text, BookAuthorTextBox.Text, BookISBNTextBox.Text, BookState.Available);
-            _libraryLogic.AddBook(newBook);
-            InitializeBookList(); 
-            UpdateBookCountLabel();
+                if (_libraryLogic.GetBooks().Where(b => b.ISBN.Contains(BookISBNTextBox.Text)).Count() > 0)
+                {
+                    MessageBox.Show("A book with the same ISBN already exists.", "Duplicate ISBN", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                Book newBook = new Book(BookTitleTextBox.Text, BookAuthorTextBox.Text, BookISBNTextBox.Text, BookState.Available);
+                _libraryLogic.AddBook(newBook);
+                InitializeBookList();
+                UpdateBookCountLabel();
+            }
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
@@ -58,7 +65,7 @@ namespace Libra
             BookListBox.Items.Refresh();
         }
 
-      
+
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (sender is MenuItem item)
@@ -95,6 +102,75 @@ namespace Libra
 
             BookListBox.ItemsSource = _libraryLogic.SearchBooks(query, mode);
             BookListBox.Items.Refresh();
+        }
+
+        private void BookTitleTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidateTitle();
+        }
+
+        private bool ValidateTitle()
+        {
+            if (String.IsNullOrEmpty(BookTitleTextBox.Text))
+            {
+                BookTitleTextBox.Background = System.Windows.Media.Brushes.PaleVioletRed;
+                BookTitleLabel2.Content = "Title can not be empty";
+                BookTitleLabel2.Foreground = System.Windows.Media.Brushes.Red;
+                return false;
+            }
+            BookTitleTextBox.Background = System.Windows.Media.Brushes.White;
+            BookTitleLabel2.Content = "Title";
+            BookTitleLabel2.Foreground = System.Windows.Media.Brushes.Black;
+            return true;
+        }
+
+        private void BookAuthorTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidateAuthor();
+        }
+
+        private bool ValidateAuthor()
+        {
+            if (String.IsNullOrEmpty(BookAuthorTextBox.Text))
+            {
+                BookAuthorTextBox.Background = System.Windows.Media.Brushes.PaleVioletRed;
+                BookAuthorLabel.Content = "Author can not be empty";
+                BookAuthorLabel.Foreground = System.Windows.Media.Brushes.Red;
+                return false;
+            }
+            BookAuthorTextBox.Background = System.Windows.Media.Brushes.White;
+            BookAuthorLabel.Content = "Author";
+            BookAuthorLabel.Foreground = System.Windows.Media.Brushes.Black;
+            return true;
+        }
+
+        private void BookISBNTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidateISBN();
+        }
+
+        private bool ValidateISBN()
+        {
+            string regexPattern = @"^(?=(?:[^0-9]*[0-9]){10}(?:(?:[^0-9]*[0-9]){3})?$)[\d-]+$";
+
+            if (String.IsNullOrEmpty(BookISBNTextBox.Text))
+            {
+                BookISBNTextBox.Background = System.Windows.Media.Brushes.PaleVioletRed;
+                ISBNLabel.Content = "ISBN can not be empty";
+                ISBNLabel.Foreground = System.Windows.Media.Brushes.Red;
+                return false;
+            }
+            else if (!Regex.IsMatch(BookISBNTextBox.Text, regexPattern))
+            {
+                BookISBNTextBox.Background = System.Windows.Media.Brushes.PaleVioletRed;
+                ISBNLabel.Content = "Not a valid ISBN number";
+                ISBNLabel.Foreground = System.Windows.Media.Brushes.Red;
+                return false;
+            }
+            BookISBNTextBox.Background = System.Windows.Media.Brushes.White;
+            ISBNLabel.Content = "ISBN";
+            ISBNLabel.Foreground = System.Windows.Media.Brushes.Black;
+            return true;
         }
     }
 }

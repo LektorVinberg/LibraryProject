@@ -51,17 +51,17 @@ namespace Libra
 
         private bool ValidateCustomerName()
         {
-            if (NewCustomerName.Text.Length > 0)
+            if (String.IsNullOrEmpty(NewCustomerName.Text))
             {
-                NewCustomerName.Background = System.Windows.Media.Brushes.White;
-                NewCustomerNameLabel.Content = "Name";
-                NewCustomerNameLabel.Foreground = System.Windows.Media.Brushes.Black;
-                return true;
+                NewCustomerName.Background = System.Windows.Media.Brushes.PaleVioletRed;
+                NewCustomerNameLabel.Content = "Name cannot be empty";
+                NewCustomerNameLabel.Foreground = System.Windows.Media.Brushes.Red;
+                return false;
             }
-            NewCustomerName.Background = System.Windows.Media.Brushes.PaleVioletRed;
-            NewCustomerNameLabel.Content = "Name cannot be empty";
-            NewCustomerNameLabel.Foreground = System.Windows.Media.Brushes.Red;
-            return false;
+            NewCustomerName.Background = System.Windows.Media.Brushes.White;
+            NewCustomerNameLabel.Content = "Name";
+            NewCustomerNameLabel.Foreground = System.Windows.Media.Brushes.Black;
+            return true;
         }
         private void UpdateCustomerCountLabel()
         {
