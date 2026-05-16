@@ -43,9 +43,7 @@
                             <ColumnDefinition Width="120" />
                             <ColumnDefinition Width="160" />
                             <ColumnDefinition Width="200" />
-
                         </Grid.ColumnDefinitions>
-
                         <TextBlock Text="{Binding ISBN}" TextWrapping="Wrap" Grid.Column="0" />
                         <TextBlock Text="{Binding Author}" TextWrapping="Wrap" Grid.Column="1" />
                         <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Grid.Column="2" />
