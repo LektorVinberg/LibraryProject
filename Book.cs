@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Libra
@@ -42,7 +43,8 @@ namespace Libra
             get { return isbn; }
             set
             {
-                if (!string.IsNullOrEmpty(value))
+                string regexPattern = @"^(?=(?:[^0-9]*[0-9]){10}(?:(?:[^0-9]*[0-9]){3})?$)[\d-]+$";
+                if (!string.IsNullOrEmpty(value) && Regex.IsMatch(value, regexPattern))
                 {
                     isbn = value;
                 }
