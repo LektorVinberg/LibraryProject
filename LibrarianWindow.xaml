@@ -39,8 +39,6 @@
         </StackPanel>
         
 
-        <Button x:Name="ReservationButton" Content="Reservation Window" HorizontalAlignment="Left" Height="48" Margin="77,142,0,0" VerticalAlignment="Top" Width="158" Click="ReservationButton_Click"/>
-
     </Grid>
     
 </Window>
