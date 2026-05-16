@@ -8,9 +8,46 @@ namespace Libra
 {
     public class Book
     {
-        public string Title { get; set; }
-        public string Author { get; set; }
-        public String ISBN { get; set; }
+        private string title;
+        private string author;
+        private string isbn;
+        public string Title
+        {
+            get
+            {
+                return title;
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    title = value;
+                }
+            }
+        }
+        public string Author
+        {
+            get { return author; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    title = value;
+                }
+            }
+
+        }
+        public string ISBN
+        {
+            get { return isbn; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    isbn = value;
+                }
+            }
+        }
         public BookState Status { get; set; } = BookState.Available;
 
         public Book(string title, string author, string isbn, BookState status)
@@ -33,7 +70,7 @@ namespace Libra
 
     }
 
- 
+
 
     public enum BookState
     {
