@@ -31,7 +31,7 @@
         <StackPanel x:Name="StackPanel1" HorizontalAlignment="Left" Height="295" Grid.Row="1" VerticalAlignment="Center" Width="213" Margin="14,0,0,0" Grid.Column="1">
             <Label Content="Enter customer info" Height="27" Width="157"/>
             <Label x:Name="NewCustomerNameLabel" Content="Name" Height="25" Width="180" FontSize="10"/>
-            <TextBox x:Name="NewCustomerName" Height="23" TextWrapping="Wrap" Width="180"/>
+            <TextBox x:Name="NewCustomerName" Height="23" TextWrapping="Wrap" Width="180" TextChanged="NewCustomerName_TextChanged"/>
             <Label x:Name="EmptyLabel1" Content="" Height="53" Width="179"/>
             <Label x:Name="CreateCustomerLabel" Content="Create Customer" Height="26" Width="176"/>
             <Button x:Name="CreateCustomerButton" Content="Add Customer" FontSize="20" Height="42" Width="174" Click="CreateCustomerButton_Click"/>

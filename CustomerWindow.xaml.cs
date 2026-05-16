@@ -41,9 +41,27 @@ namespace Libra
 
         private void CreateCustomerButton_Click(object sender, RoutedEventArgs e)
         {
-            _libraryLogic.AddCustomer(NewCustomerName.Text);
-            InitializeCustomerList();
-            UpdateCustomerCountLabel();
+            if (ValidateCustomerName())
+            {
+                _libraryLogic.AddCustomer(NewCustomerName.Text);
+                InitializeCustomerList();
+                UpdateCustomerCountLabel();
+            }
+        }
+
+        private bool ValidateCustomerName()
+        {
+            if (NewCustomerName.Text.Length > 0)
+            {
+                NewCustomerName.Background = System.Windows.Media.Brushes.White;
+                NewCustomerNameLabel.Content = "Name";
+                NewCustomerNameLabel.Foreground = System.Windows.Media.Brushes.Black;
+                return true;
+            }
+            NewCustomerName.Background = System.Windows.Media.Brushes.PaleVioletRed;
+            NewCustomerNameLabel.Content = "Name cannot be empty";
+            NewCustomerNameLabel.Foreground = System.Windows.Media.Brushes.Red;
+            return false;
         }
         private void UpdateCustomerCountLabel()
         {
@@ -94,6 +112,11 @@ namespace Libra
                     LoanedBooksLabel.Content = "Borrowed Books: None";
                 }
         }
+
+        private void NewCustomerName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ValidateCustomerName();
         }
-     }
+    }
+}
 
