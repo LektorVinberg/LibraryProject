@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Text;
-using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Libra
@@ -19,13 +18,10 @@ namespace Libra
         private const double DAYS_UNTIL_DUE = 5;
         public record OverDue(string Title, string Name, decimal LateFee);
 
-        List<BookReservation> reservations;
-
         internal LibraryLogic()
         {
             books = new List<Book>();
             customers = new List<Customer>();
-            reservations = new List<BookReservation>();
         }
         internal List<Book> GetBooks()
         {
@@ -95,23 +91,20 @@ namespace Libra
         {
             var book = books.FirstOrDefault(b => b.ISBN == isbn);
             var customer = customers.FirstOrDefault(c => c.CustomerID == customerId);
-            var reservation = reservations.FirstOrDefault(r => r.Book.ISBN == isbn);
 
             if (book == null) return "Book not found.";
             if (customer == null) return "Customer not found.";
             if (book.Status != BookState.Available) return "Book is not available.";
-            if (reservation != null)
-            {
-                return "Book is reserved by another customer.";
-            }   
+
             book.SetStatus(BookState.OnLoan);
             customer.AddLoan(book);
             return "Book loaned successfully.";
         }
-        
-    
+
+
         internal string ReturnBook(string isbn, Guid customerId)
         {
+
             var book = books.FirstOrDefault(b => b.ISBN == isbn);
             var customer = customers.FirstOrDefault(c => c.CustomerID == customerId);
 
@@ -172,56 +165,8 @@ namespace Libra
             return timeSpan.Seconds * LATE_FEE_PER_DAY;
         }
 
-
-        internal string ReserveBook(string isbn, Guid customerId)
-        {
-            var book = books.FirstOrDefault(b => b.ISBN == isbn);
-            var customer = customers.FirstOrDefault(c => c.CustomerID == customerId);
-            if (book == null) return "Book not found.";
-            if (customer == null) return "Customer not found.";
-
-            if (reservations != null)
-            {
-                // Check if the customer already reserved the book
-                BookReservation ownReservation = reservations.FirstOrDefault(b => b.Book.ISBN == isbn && b.Customer.CustomerID == customerId);
-                if (ownReservation != null)
-                {
-                    return "Already reserved by customer";
-                }
-                // Now check how many reservations the book has and add the reservation
-                int reservationCount = reservations.Count(b => b.Book.ISBN == isbn);
-                var newReservation = new BookReservation(customer, book, DateTime.Now, reservationCount + 1);
-                reservations.Add(newReservation);
-            }
-            return "Book reserved successfully";
-
-        }
-        internal List<BookReservation> GetReservations()
-        {
-            return reservations;
-        }
-
-        internal string CancelReservation(string isbn, Guid customerId)
-        {
-            var reservation = reservations.FirstOrDefault(r => r.Book.ISBN == isbn && r.Customer.CustomerID == customerId);
-            if (reservation == null) return "Reservation not found.";
-            reservations.Remove(reservation);
-            var remainingReservations = reservations.Where(r => r.Book.ISBN == isbn).ToList();
-            // Update queue places for remaining reservations
-            for (int i = 0; i < remainingReservations.Count; i++)
-            {
-                remainingReservations[i].QueuePlace = i + 1;
-            }
-            return "Reservation cancelled successfully.";
-        }
-
         internal void BackupLists()
         {
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-            };
             // Implement backup logic here, e.g., save books and customers to a file or database
             if (customers.Count > 0)
             {
@@ -230,15 +175,9 @@ namespace Libra
             }
             if (books.Count > 0)
             {
-                string jsonString = JsonSerializer.Serialize(books, options);
-                File.WriteAllText(@"..\..\..\books.Json", jsonString, Encoding.UTF8);
+                string jsonString = JsonSerializer.Serialize(books);
+                File.WriteAllText(@"..\..\..\Data\books.Json", jsonString);
             }
-            if (reservations.Count > 0)
-            {
-                string jsonString = JsonSerializer.Serialize(reservations, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(@"..\..\..\Data\reservations.Json", jsonString);
-            }
-
         }
 
         internal void RetrieveLists()
@@ -253,11 +192,6 @@ namespace Libra
             {
                 string jsonString = File.ReadAllText(@"..\..\..\Data\books.Json");
                 books = JsonSerializer.Deserialize<List<Book>>(jsonString);
-            }
-            if (File.Exists(@"..\..\..\reservations.Json"))
-            {
-                string jsonString = File.ReadAllText(@"..\..\..\reservations.Json");
-                reservations = JsonSerializer.Deserialize<List<BookReservation>>(jsonString);
             }
         }
 

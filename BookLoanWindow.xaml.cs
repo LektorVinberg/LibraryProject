@@ -49,7 +49,6 @@ namespace Libra
         {
             if (AvailableBooksListBox.SelectedItem is Book selectedBook)
             {
-   
                 string result = _libraryLogic.LoanBook(selectedBook.ISBN, _customer.CustomerID);
                 MessageBox.Show(result);
                 InitializeBookLists();
