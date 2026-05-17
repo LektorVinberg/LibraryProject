@@ -51,7 +51,7 @@ namespace Libra
             }
         }
 
-        public Guid Id { get; }
+        public Guid Id { get; set; }
         public BookState Status { get; set; } = BookState.Available;
 
         public Book(string title, string author, string isbn, BookState status)

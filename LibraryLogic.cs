@@ -231,7 +231,7 @@ namespace Libra
             if (books.Count > 0)
             {
                 string jsonString = JsonSerializer.Serialize(books, options);
-                File.WriteAllText(@"..\..\..\books.Json", jsonString, Encoding.UTF8);
+                File.WriteAllText(@"..\..\..\Data\books.Json", jsonString, Encoding.UTF8);
             }
             if (reservations.Count > 0)
             {
@@ -254,9 +254,9 @@ namespace Libra
                 string jsonString = File.ReadAllText(@"..\..\..\Data\books.Json");
                 books = JsonSerializer.Deserialize<List<Book>>(jsonString);
             }
-            if (File.Exists(@"..\..\..\reservations.Json"))
+            if (File.Exists(@"..\..\..\Data\reservations.Json"))
             {
-                string jsonString = File.ReadAllText(@"..\..\..\reservations.Json");
+                string jsonString = File.ReadAllText(@"..\..\..\Data\reservations.Json");
                 reservations = JsonSerializer.Deserialize<List<BookReservation>>(jsonString);
             }
         }
