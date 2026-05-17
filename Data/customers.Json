@@ -2,21 +2,25 @@
   {
     "Name": "Urrrako",
     "CustomerID": "68c8439e-7b06-4e96-969c-06052800f3ba",
-    "LoanedBooks": {}
+    "LoanedBooks": {
+    }
   },
   {
     "Name": "Astrid Lindgren",
     "CustomerID": "b2150010-0608-4e95-935f-a9b8f1f3a301",
-    "LoanedBooks": {}
+    "LoanedBooks": {
+    }
   },
   {
     "Name": "Martin Augustsson",
     "CustomerID": "0920a689-75bb-4b1e-b352-ad68325f9454",
-    "LoanedBooks": {}
+    "LoanedBooks": {
+    }
   },
   {
     "Name": "Anders Persson",
     "CustomerID": "d0e1f2a3-b4c5-6789-defa-890123456789",
-    "LoanedBooks": {}
+    "LoanedBooks": {
+    }
   }
 ]

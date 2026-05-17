@@ -1,1 +1,93 @@
-[{"Title":"Sagor, hyss \u0026 \u00E4ventyr","Author":"Astrid Lindgren","ISBN":"9789129674251","Status":1},{"Title":"Mera sagor, hyss \u0026 \u00E4ventyr","Author":"Astrid Lindgren","ISBN":"97891296706598","Status":1},{"Title":"Br\u00F6derna Lejonhj\u00E4rta","Author":"Astrid Lindgren","ISBN":"9789129688313","Status":1},{"Title":"Clean Code","Author":"Robert C. Martin","ISBN":"978-0132350884","Status":0},{"Title":"Design Patterns","Author":"Gang of Four","ISBN":"978-0201633610","Status":1},{"Title":"The Lord of the Rings","Author":"J.R.R. Tolkien","ISBN":"978-0618640157","Status":0},{"Title":"A Game of Thrones","Author":"George R.R. Martin","ISBN":"978-0553103540","Status":0},{"Title":"Mistborn: The Final Empire","Author":"Brandon Sanderson","ISBN":"978-0765311788","Status":0},{"Title":"Ender\u0027s Game","Author":"Orson Scott Card","ISBN":"978-0812550702","Status":0},{"Title":"The Martian","Author":"Andy Weir","ISBN":"978-0553418026","Status":0},{"Title":"The Hitchhiker\u0027s Guide to the Galaxy","Author":"Douglas Adams","ISBN":"978-0345391803","Status":1},{"Title":"Neuromancer","Author":"William Gibson","ISBN":"978-0441569595","Status":0}]
+﻿[
+  {
+    "Title": "Sagor, hyss & äventyr",
+    "Author": "Astrid Lindgren",
+    "ISBN": "9789129674251",
+    "Id": "98046786-9922-4416-8063-b99619a6240d",
+    "Status": 1
+  },
+  {
+    "Title": "Mera sagor, hyss & äventyr",
+    "Author": "Astrid Lindgren",
+    "ISBN": "9789129674256",
+    "Id": "86682553-cf79-4282-be88-7224286d646a",
+    "Status": 1
+  },
+  {
+    "Title": "Bröderna Lejonhjärta",
+    "Author": "Astrid Lindgren",
+    "ISBN": "9789129688313",
+    "Id": "6b80f310-b4ba-479f-8f9a-b796fd96fba2",
+    "Status": 1
+  },
+  {
+    "Title": "Clean Code",
+    "Author": "Robert C. Martin",
+    "ISBN": "978-0132350884",
+    "Id": "831ce714-492f-4e39-9fc7-f0cca0879063",
+    "Status": 0
+  },
+  {
+    "Title": "Design Patterns",
+    "Author": "Gang of Four",
+    "ISBN": "978-0201633610",
+    "Id": "5977f746-e0ba-4bcf-a347-ab062f668fb7",
+    "Status": 1
+  },
+  {
+    "Title": "The Lord of the Rings",
+    "Author": "J.R.R. Tolkien",
+    "ISBN": "978-0618640157",
+    "Id": "91d26538-6e14-4acb-b40d-817068612ee9",
+    "Status": 0
+  },
+  {
+    "Title": "A Game of Thrones",
+    "Author": "George R.R. Martin",
+    "ISBN": "978-0553103540",
+    "Id": "e67e2b7e-cd0a-44b9-acc2-14e8c48b5c00",
+    "Status": 0
+  },
+  {
+    "Title": "Mistborn: The Final Empire",
+    "Author": "Brandon Sanderson",
+    "ISBN": "978-0765311788",
+    "Id": "4fb76317-5412-4ca8-8322-4537d6bd21e2",
+    "Status": 0
+  },
+  {
+    "Title": "Ender's Game",
+    "Author": "Orson Scott Card",
+    "ISBN": "978-0812550702",
+    "Id": "c0a711e7-083c-4abf-b28d-f17d744f230a",
+    "Status": 0
+  },
+  {
+    "Title": "The Martian",
+    "Author": "Andy Weir",
+    "ISBN": "978-0553418026",
+    "Id": "caca2205-bd95-4cfc-95c6-47f085a237f8",
+    "Status": 0
+  },
+  {
+    "Title": "The Hitchhiker's Guide to the Galaxy",
+    "Author": "Douglas Adams",
+    "ISBN": "978-0345391803",
+    "Id": "85c1a12b-01e9-4de0-ac60-18dbd71dc826",
+    "Status": 1
+  },
+  {
+    "Title": "Neuromancer",
+    "Author": "William Gibson",
+    "ISBN": "978-0441569595",
+    "Id": "ab57d7de-d34c-4780-b14d-77b6de659391",
+    "Status": 0
+  },
+  {
+    "Title": "Göteborgssyndromet",
+    "Author": "Sanna Kullin",
+    "ISBN": "978-91-7775-465-7",
+    "Id": "f7e2b742-02dc-4a1d-8497-4e3c7588e96a",
+    "Status": 0
+  }
+]
