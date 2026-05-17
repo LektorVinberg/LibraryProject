@@ -10,7 +10,7 @@
         <ImageBrush ImageSource="/Assets/books_bg.png" Stretch="UniformToFill" Opacity="0.3"/>
     </Window.Background>
 
-    <Grid Margin="0,0,0,-6">
+    <Grid Margin="0,0,0,-16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -26,8 +26,9 @@
         <Button Grid.Row="1" Grid.Column="1" x:Name="SaveExitButton" Content="Save and exit" FontSize="20" FontWeight="Bold"  HorizontalAlignment="Center" Height="54" VerticalAlignment="Center" Width="165" Background="#a5d496" Click="SaveExitButton_Click"/>
         <Button Grid.Row="1" x:Name="ExitButton" Content="Exit" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Height="54" VerticalAlignment="Center" Width="165" Background="#FFE7B37D" Click="Exit_Click"/>
         <Button Grid.Column="1" x:Name="BookButton" Content="Books" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Height="54" VerticalAlignment="Center" Width="157" Click="BookButton_Click"/>
-        <Button x:Name="ReportsButton" Grid.Column="3" Grid.Row="1" Content="Reports" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Height="54" Width="84" Click="ReportsButton_Click"/>
-
+        <Button x:Name="ReportsButton" Grid.Column="3" Grid.Row="1" Content="Reports" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Height="54" Width="90" Click="ReportsButton_Click"/>
+        <Button x:Name="ReservationButton" Grid.Column="3" Grid.Row="0" Content="Reservations" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center" Height="54" VerticalAlignment="Center" Width="146" Click="ReservationButton_Click"/>
+        
         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"  Width="Auto" Height="Auto">
             <Label Content="Reminder" Background="Gray"/>
             <DataGrid x:Name="ReminderGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" Height="200">
@@ -37,11 +38,9 @@
                     <DataGridTextColumn Header="Late fee" Binding="{Binding LateFee}" />
                 </DataGrid.Columns>
             </DataGrid>
-            <Button x:Name="Refresh" Grid.Row="2" Content="Refresh" Click="RefreshReminders"/>
+            <Button x:Name="Refresh" Grid.Row="2" Content="Refresh" Click="RefreshReminders" Height="29"/>
         </StackPanel>
 
-
-        <Button x:Name="ReservationButton" Content="Reservation Window" HorizontalAlignment="Left" Height="48" Margin="77,142,0,0" VerticalAlignment="Top" Width="158" Click="ReservationButton_Click"/>
 
     </Grid>
 
