@@ -3,7 +3,7 @@
     "Customer": {
       "Name": "Johan Klint",
       "CustomerID": "8fe04eee-3e94-48a3-b3da-7dc83c71282f",
-      "LoanedBooks": []
+      "LoanedBooks": {}
     },
     "Book": {
       "Title": "Br\u00F6derna Lejonhj\u00E4rta",
@@ -18,14 +18,7 @@
     "Customer": {
       "Name": "Astrid Lindgren",
       "CustomerID": "b2150010-0608-4e95-935f-a9b8f1f3a301",
-      "LoanedBooks": [
-        {
-          "Title": "Br\u00F6derna Lejonhj\u00E4rta",
-          "Author": "Astrid Lindgren",
-          "ISBN": "9789129688313",
-          "Status": 1
-        }
-      ]
+      "LoanedBooks": {}
     },
     "Book": {
       "Title": "Mera sagor, hyss \u0026 \u00E4ventyr",
@@ -40,7 +33,7 @@
     "Customer": {
       "Name": "Johan Klint",
       "CustomerID": "8fe04eee-3e94-48a3-b3da-7dc83c71282f",
-      "LoanedBooks": []
+      "LoanedBooks": {}
     },
     "Book": {
       "Title": "Mera sagor, hyss \u0026 \u00E4ventyr",

@@ -42,7 +42,7 @@ namespace Libra
             var customer = customers.FirstOrDefault(c => c.CustomerID == customerId);
             if (customer != null)
             {
-                return customer.LoanedBooks.Keys.ToList();
+                return books.Where(book => customer.LoanedBooks.ContainsKey(book.Id)).ToList();
             }
             return new List<Book>();
         }
@@ -118,11 +118,11 @@ namespace Libra
             if (book == null) return "Book not found";
             if (customer == null) return "Customer not found.";
 
-            bool loan = customer.LoanedBooks.ContainsKey(book);
+            bool loan = customer.LoanedBooks.ContainsKey(book.Id);
 
             if (loan)
             {
-                customer.LoanedBooks.Remove(book);
+                customer.RemoveLoan(book.Id);
                 book.SetStatus(BookState.Available);
                 return "Book returned successfully.";
             }
@@ -146,19 +146,19 @@ namespace Libra
 
             foreach (Customer customer in customers)
             {
-                Dictionary<Book, DateTime> loanedBooks = customer.LoanedBooks;
+                Dictionary<Guid, DateTime> loanedBooks = customer.LoanedBooks;
 
-                foreach (Book book in loanedBooks.Keys)
+                foreach (Guid bookId in loanedBooks.Keys)
                 {
                     decimal lateFee = 0;
-                    DateTime dueDate = loanedBooks[book].AddSeconds(DAYS_UNTIL_DUE);    //AddSeconds() is called instead of AddDays(). This is for demonstration purposes only.
+                    DateTime dueDate = loanedBooks[bookId].AddSeconds(DAYS_UNTIL_DUE);    //AddSeconds() is called instead of AddDays(). This is for demonstration purposes only.
                     if (dueDate <= DateTime.Now)
                     {
 
                         lateFee = CalculateOverDueFee(dueDate);
-
+                        string bookTitle = books.Find(book => book.Id == bookId).Id.ToString();
                         overDueList.Add(
-                                new OverDue(book.Title, customer.Name, lateFee)
+                                new OverDue(bookTitle, customer.Name, lateFee)
                             );
                     }
                 }
@@ -311,7 +311,7 @@ namespace Libra
             {
                 foreach (var loan in customer.LoanedBooks)
                 {
-                    Book book = loan.Key;
+                    Book book = books.Find(book => book.Id == loan.Key);
                     DateTime loanDate = loan.Value;
 
                     report.Add(

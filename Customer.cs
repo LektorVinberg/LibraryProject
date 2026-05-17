@@ -19,23 +19,23 @@ namespace Libra
             }
         }
         public Guid CustomerID { get; set; }
-        public Dictionary<Book, DateTime> LoanedBooks { get; set; }
+        public Dictionary<Guid, DateTime> LoanedBooks { get; set; }
 
         public Customer(string name)
         {
             Name = name;
             CustomerID = Guid.NewGuid();
-            LoanedBooks = new Dictionary<Book, DateTime>();
+            LoanedBooks = new Dictionary<Guid, DateTime>();
         }
 
         internal void AddLoan(Book book)
         {
-            LoanedBooks.Add(book, DateTime.Now);
-            Console.WriteLine("asialisjdaisdj");
+            LoanedBooks.Add(book.Id, DateTime.Now);
         }
 
-        internal void RemoveLoan(Book book)         {
-            LoanedBooks.Remove(book);
+        internal void RemoveLoan(Guid bookId)
+        {
+            LoanedBooks.Remove(bookId);
         }
 
         internal string GetInfo()

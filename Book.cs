@@ -33,7 +33,7 @@ namespace Libra
             {
                 if (!string.IsNullOrEmpty(value))
                 {
-                    title = value;
+                    author = value;
                 }
             }
 
@@ -50,6 +50,8 @@ namespace Libra
                 }
             }
         }
+
+        public Guid Id { get; }
         public BookState Status { get; set; } = BookState.Available;
 
         public Book(string title, string author, string isbn, BookState status)
@@ -58,6 +60,7 @@ namespace Libra
             Author = author;
             ISBN = isbn;
             Status = status;
+            Id = Guid.NewGuid();
         }
 
         internal string GetDetails()
