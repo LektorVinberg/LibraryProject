@@ -28,14 +28,14 @@
             <TextBox x:Name="BookAuthorTextBox" Height="32" TextWrapping="Wrap" Width="200" TextChanged="BookAuthorTextBox_TextChanged"/>
             <Label x:Name="ISBNLabel" Content="ISBN" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top"/>
             <TextBox x:Name="BookISBNTextBox" Height="32" TextWrapping="Wrap" Width="200" TextChanged="BookISBNTextBox_TextChanged"/>
-            <Button x:Name="AddBookButton" Content="Add Book" FontSize="20" Margin="6,15" Height="33" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Click="AddBookButton_Click"/>
+            <Button x:Name="AddBookButton" Content="Add Book" FontSize="20" Margin="6,15" Height="33" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Click="AddBookButton_Click" IsEnabled="False"/>
             <Label x:Name="BookCountLabel" Content="Book Count: 0" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="190"/>
         </StackPanel>
         
         
         
         <Button x:Name="ExitButton" Grid.Column="2" Content="Exit" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Height="42" Margin="330,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="172" Background="#FFE7B37D" Click="ExitButton_Click"/>
-        <ListBox x:Name="BookListBox" Grid.Column="2" HorizontalAlignment="Center" Height="148" Margin="0,69,0,0" Grid.Row="1" VerticalAlignment="Top" Width="492" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListBox x:Name="BookListBox" Grid.Column="2" HorizontalAlignment="Center" Height="148" Margin="0,69,0,0" Grid.Row="1" VerticalAlignment="Top" Width="492" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="BookListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -65,7 +65,7 @@
         </Button>
         <TextBox x:Name="SearchTextBox" Grid.Column="2" HorizontalAlignment="Left" Height="24" Margin="10,3,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="311" TextChanged="SearchTextBox_TextChanged"/>
         <Label Grid.Column="2" Content="Enter search string                                                         Search Mode" HorizontalAlignment="Center" Height="32" Margin="0,222,0,0" Grid.Row="1" VerticalAlignment="Top" Width="492"/>
-        <Button x:Name="DeleteButton" Grid.Column="2" Content="Delete selected" FontSize="20" HorizontalAlignment="Left" Height="34" Margin="165,274,0,0" Grid.Row="1" VerticalAlignment="Top" Width="166" Click="DeleteButton_Click"/>
+        <Button x:Name="DeleteButton" Grid.Column="2" Content="Delete selected" FontSize="20" HorizontalAlignment="Left" Height="34" Margin="165,274,0,0" Grid.Row="1" VerticalAlignment="Top" Width="166" Click="DeleteButton_Click" IsEnabled="False"/>
         <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="367,44,0,0" TextWrapping="Wrap" Text="Select Filter" FontSize="20" VerticalAlignment="Top"/>
 
     </Grid>

@@ -8,9 +8,9 @@
         Title="BookReservationWindow" Height="500" Width="1000">
     <Grid>
         <Label x:Name="CustomerLabel" Content="Customer" HorizontalAlignment="Left" Height="36" Margin="93,17,0,0" VerticalAlignment="Top" Width="242" IsEnabled="False"/>
-        <ListBox x:Name="CustomerListBox" HorizontalAlignment="Left" Height="128" Margin="93,53,0,0" VerticalAlignment="Top" DisplayMemberPath="Name"  Width="380" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <ListBox x:Name="CustomerListBox" HorizontalAlignment="Left" Height="128" Margin="93,53,0,0" VerticalAlignment="Top" DisplayMemberPath="Name"  Width="380" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="CustomerListBox_SelectionChanged"/>
         <Label x:Name="ReeservedBooksLabel" Content="Reserved books" HorizontalAlignment="Left" Height="35" Margin="93,205,0,0" VerticalAlignment="Top" Width="188"/>
-        <ListBox x:Name="ReservedBooksListBox" HorizontalAlignment="Left" Height="128" Margin="93,240,0,0" VerticalAlignment="Top" Width="590" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListBox x:Name="ReservedBooksListBox" HorizontalAlignment="Left" Height="128" Margin="93,240,0,0" VerticalAlignment="Top" Width="590" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ReservedBooksListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Width="574">
@@ -29,7 +29,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Label x:Name="BookLabel" Content="Books" HorizontalAlignment="Left" Margin="673,23,0,0" VerticalAlignment="Top" Width="79"/>
-        <ListBox x:Name="BookListBox" HorizontalAlignment="Left" Height="170" Margin="518,53,0,0" VerticalAlignment="Top" Width="386" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListBox x:Name="BookListBox" HorizontalAlignment="Left" Height="170" Margin="518,53,0,0" VerticalAlignment="Top" Width="386" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="BookListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -45,10 +45,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button x:Name="AddReservationButton" Content="Make reservation" HorizontalAlignment="Left" Height="46" Margin="764,240,0,0" VerticalAlignment="Top" Width="140" Click="AddReservationButton_Click"/>
-        <Button x:Name="BorrowButton" Content="Borrow reserved book" HorizontalAlignment="Left" Height="46" Margin="93,388,0,0" VerticalAlignment="Top" Width="188" Click="BorrowButton_Click"/>
+        <Button x:Name="AddReservationButton" Content="Make reservation" HorizontalAlignment="Left" Height="46" Margin="764,240,0,0" VerticalAlignment="Top" Width="140" Click="AddReservationButton_Click" IsEnabled="False"/>
+        <Button x:Name="BorrowButton" Content="Borrow reserved book" HorizontalAlignment="Left" Height="46" Margin="93,388,0,0" VerticalAlignment="Top" Width="188" Click="BorrowButton_Click" IsEnabled="False"/>
         <Button x:Name="CloseButton" Content="Close" HorizontalAlignment="Left" Height="46" Margin="764,388,0,0" VerticalAlignment="Top" Width="140" Background="#FFE37C7C" Click="CloseButton_Click"/>
-        <Button x:Name="RemoveReservationButton" Content="Remove Reservation" HorizontalAlignment="Left" Height="42" Margin="764,304,0,0" VerticalAlignment="Top" Width="140" Click="RemoveReservationButton_Click"/>
+        <Button x:Name="RemoveReservationButton" Content="Remove Reservation" HorizontalAlignment="Left" Height="42" Margin="764,304,0,0" VerticalAlignment="Top" Width="140" Click="RemoveReservationButton_Click" IsEnabled="False"/>
 
     </Grid>
 </Window>

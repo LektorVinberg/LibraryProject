@@ -102,5 +102,48 @@ namespace Libra
 
             }
         }
+
+        private void ReservedBooksListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var reservation = ReservedBooksListBox.SelectedItem as BookReservation;
+            if (reservation == null)
+            {
+                BorrowButton.IsEnabled = false;
+                RemoveReservationButton.IsEnabled = false;
+            }
+            else
+            {
+                BorrowButton.IsEnabled = true;
+                RemoveReservationButton.IsEnabled = true;
+            }
+        }
+       private bool ValidateSelectionMakeReservation()
+        {
+            return CustomerListBox.SelectedItem != null && BookListBox.SelectedItem != null;
+        }
+
+        private void CustomerListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ValidateSelectionMakeReservation())
+            {
+                AddReservationButton.IsEnabled = true;
+            }
+            else
+            {
+                AddReservationButton.IsEnabled = false;
+            }
+        }
+
+        private void BookListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ValidateSelectionMakeReservation())
+            {
+                AddReservationButton.IsEnabled = true;
+            }
+            else
+            {
+                AddReservationButton.IsEnabled = false;
+            }
+        }
     }
 }

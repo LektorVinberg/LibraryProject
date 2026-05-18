@@ -56,11 +56,13 @@ namespace Libra
                 NewCustomerName.Background = System.Windows.Media.Brushes.PaleVioletRed;
                 NewCustomerNameLabel.Content = "Name cannot be empty";
                 NewCustomerNameLabel.Foreground = System.Windows.Media.Brushes.Red;
+                CreateCustomerButton.IsEnabled = false;
                 return false;
             }
             NewCustomerName.Background = System.Windows.Media.Brushes.White;
             NewCustomerNameLabel.Content = "Name";
             NewCustomerNameLabel.Foreground = System.Windows.Media.Brushes.Black;
+            CreateCustomerButton.IsEnabled = true;
             return true;
         }
         private void UpdateCustomerCountLabel()
@@ -103,6 +105,7 @@ namespace Libra
         {
             var selectedCustomer = CustomerListbox.SelectedItem as Customer;
             if (selectedCustomer != null)
+            { 
                 if (selectedCustomer.LoanedBooks.Count > 0)
                 {
                     LoanedBooksLabel.Content = $"Borrowed Books: {selectedCustomer.LoanedBooks.Count}";
@@ -110,13 +113,27 @@ namespace Libra
                 else
                 {
                     LoanedBooksLabel.Content = "Borrowed Books: None";
-                }
+                };
+                DeleteButton.IsEnabled = true;
+                LoanButton.IsEnabled = true;
+            }
+            else
+            {
+                DeleteButton.IsEnabled = false;
+                LoanButton.IsEnabled = false;
+            }
         }
 
         private void NewCustomerName_TextChanged(object sender, TextChangedEventArgs e)
         {
             ValidateCustomerName();
         }
+
+        private void FindCustomerTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Implement search functionality here
+        }
+      
     }
 }
 
