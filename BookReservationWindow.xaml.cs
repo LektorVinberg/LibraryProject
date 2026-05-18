@@ -69,9 +69,19 @@ namespace Libra
                 MessageBox.Show("Please select a reservation to remove.");
                 return;
             }
-            var result = _libraryLogic.CancelReservation(reservation.Book.ISBN, reservation.Customer.CustomerID);
-            MessageBox.Show(result);
-            ReservedBooksListBox.Items.Refresh();
+
+            MessageBoxResult messageResult = MessageBox.Show(
+                "Are you sure you want to cancel this reservation? This action can not be undone!",
+                "Remove reservation",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (messageResult == MessageBoxResult.Yes)
+            {
+                var result = _libraryLogic.CancelReservation(reservation.Book.ISBN, reservation.Customer.CustomerID);
+                MessageBox.Show(result);
+                ReservedBooksListBox.Items.Refresh();
+            }
         }
 
         private void BorrowButton_Click(object sender, RoutedEventArgs e)

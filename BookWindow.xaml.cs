@@ -28,19 +28,19 @@ namespace Libra
             InitializeComponent();
             InitializeBookList();
             UpdateBookCountLabel();
-/*            ValidateTitle();
-            ValidateAuthor();
-            ValidateISBN();
-            AddBookButton.IsEnabled = (ValidateTitle() && ValidateAuthor() && ValidateISBN());
-*/
+            /*            ValidateTitle();
+                        ValidateAuthor();
+                        ValidateISBN();
+                        AddBookButton.IsEnabled = (ValidateTitle() && ValidateAuthor() && ValidateISBN());
+            */
         }
 
         private void AddBookButton_Click(object sender, RoutedEventArgs e)
         {
-            ValidateTitle();
-            ValidateAuthor();
-            ValidateISBN();
-            if (ValidateTitle() && ValidateAuthor() && ValidateISBN())
+            ValidTitle();
+            ValidAuthor();
+            ValidISBN();
+            if (ValidTitle() && ValidAuthor() && ValidISBN().result)
             {
                 if (_libraryLogic.GetBooks().Where(b => b.ISBN.Contains(BookISBNTextBox.Text)).Count() > 0)
                 {
@@ -96,11 +96,20 @@ namespace Libra
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         // delete selected book from the list and update the book count label
         {
-            if (MenuButton.Content is string isbn)
+            MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to delete the book? This action can not be undone!",
+                "Delete book",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
             {
-                _libraryLogic.RemoveBook(BookListBox.SelectedItem as Book);
-                InitializeBookList();
-                UpdateBookCountLabel();
+                if (MenuButton.Content is string isbn)
+                {
+                    _libraryLogic.RemoveBook(BookListBox.SelectedItem as Book);
+                    InitializeBookList();
+                    UpdateBookCountLabel();
+                }
             }
         }
 
@@ -115,72 +124,82 @@ namespace Libra
 
         private void BookTitleTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            AddBookButton.IsEnabled = (ValidateTitle() & ValidateAuthor() & ValidateISBN());
-        }
-        
-
-        private bool ValidateTitle()
-        {
-            if (String.IsNullOrEmpty(BookTitleTextBox.Text))
+            if (ValidTitle())
+            {
+                BookTitleTextBox.Background = System.Windows.Media.Brushes.White;
+                BookTitleLabel2.Content = "Title";
+                BookTitleLabel2.Foreground = System.Windows.Media.Brushes.Black;
+            }
+            else
             {
                 BookTitleTextBox.Background = System.Windows.Media.Brushes.PaleVioletRed;
                 BookTitleLabel2.Content = "Title can not be empty";
                 BookTitleLabel2.Foreground = System.Windows.Media.Brushes.Red;
-                return false;
             }
-            BookTitleTextBox.Background = System.Windows.Media.Brushes.White;
-            BookTitleLabel2.Content = "Title";
-            BookTitleLabel2.Foreground = System.Windows.Media.Brushes.Black;
-            return true;
+            AddBookButton.IsEnabled = (ValidTitle() & ValidAuthor() & ValidISBN().result);
+        }
+
+
+        private bool ValidTitle()
+        {
+            return !String.IsNullOrEmpty(BookTitleTextBox.Text);
         }
 
         private void BookAuthorTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            AddBookButton.IsEnabled = (ValidateTitle() & ValidateAuthor() & ValidateISBN());
-        }
-
-        private bool ValidateAuthor()
-        {
-            if (String.IsNullOrEmpty(BookAuthorTextBox.Text))
+            if (ValidAuthor())
+            {
+                BookAuthorTextBox.Background = System.Windows.Media.Brushes.White;
+                BookAuthorLabel.Content = "Author";
+                BookAuthorLabel.Foreground = System.Windows.Media.Brushes.Black;
+            }
+            else
             {
                 BookAuthorTextBox.Background = System.Windows.Media.Brushes.PaleVioletRed;
                 BookAuthorLabel.Content = "Author can not be empty";
                 BookAuthorLabel.Foreground = System.Windows.Media.Brushes.Red;
-                return false;
             }
-            BookAuthorTextBox.Background = System.Windows.Media.Brushes.White;
-            BookAuthorLabel.Content = "Author";
-            BookAuthorLabel.Foreground = System.Windows.Media.Brushes.Black;
-            return true;
+            AddBookButton.IsEnabled = (ValidTitle() & ValidAuthor() & ValidISBN().result);
+        }
+
+        private bool ValidAuthor()
+        {
+            return !String.IsNullOrEmpty(BookAuthorTextBox.Text);
         }
 
         private void BookISBNTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            AddBookButton.IsEnabled = (ValidateTitle() & ValidateAuthor() & ValidateISBN());
+            (bool result, string errorMessage) = ValidISBN();
+            if (!result)
+            {
+                BookISBNTextBox.Background = System.Windows.Media.Brushes.PaleVioletRed;
+                ISBNLabel.Content = errorMessage;
+                ISBNLabel.Foreground = System.Windows.Media.Brushes.Red;
+            }
+            else
+            {
+                BookISBNTextBox.Background = System.Windows.Media.Brushes.White;
+                ISBNLabel.Content = "ISBN";
+                ISBNLabel.Foreground = System.Windows.Media.Brushes.Black;
+            }
+
+            AddBookButton.IsEnabled = (ValidTitle() & ValidAuthor() & ValidISBN().result);
         }
 
-        private bool ValidateISBN()
+        private (bool result, string errorMessage) ValidISBN()
         {
             string regexPattern = @"^(?=(?:[^0-9]*[0-9]){10}(?:(?:[^0-9]*[0-9]){3})?$)[\d-]+$";
 
             if (String.IsNullOrEmpty(BookISBNTextBox.Text))
             {
-                BookISBNTextBox.Background = System.Windows.Media.Brushes.PaleVioletRed;
-                ISBNLabel.Content = "ISBN can not be empty";
-                ISBNLabel.Foreground = System.Windows.Media.Brushes.Red;
-                return false;
+                return (false, "ISBN can not be empty");
             }
             else if (!Regex.IsMatch(BookISBNTextBox.Text, regexPattern))
             {
-                BookISBNTextBox.Background = System.Windows.Media.Brushes.PaleVioletRed;
-                ISBNLabel.Content = "Not a valid ISBN number";
-                ISBNLabel.Foreground = System.Windows.Media.Brushes.Red;
-                return false;
+                return (false, "Not a valid ISBN number");
             }
-            BookISBNTextBox.Background = System.Windows.Media.Brushes.White;
-            ISBNLabel.Content = "ISBN";
-            ISBNLabel.Foreground = System.Windows.Media.Brushes.Black;
-            return true;
+
+            return (true, "");
         }
 
         private void BookListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -82,11 +82,19 @@ namespace Libra
             var selectedCustomer = CustomerListbox.SelectedItem as Customer;
             if (selectedCustomer != null)
             {
-                // Remove the selected customer using the library logic
-                _libraryLogic.RemoveCustomer(selectedCustomer.CustomerID);
-                // Update the customer list and count label
-                InitializeCustomerList();
-                UpdateCustomerCountLabel();
+                MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete {selectedCustomer.Name}? This action can not be undone!",
+                "Delete customer",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Remove the selected customer using the library logic
+                    _libraryLogic.RemoveCustomer(selectedCustomer.CustomerID);
+                    // Update the customer list and count label
+                    InitializeCustomerList();
+                    UpdateCustomerCountLabel();
+                }
             }
         }
 
