@@ -100,7 +100,7 @@ namespace Libra
             if (book == null) return "Book not found.";
             if (customer == null) return "Customer not found.";
             if (book.Status != BookState.Available) return "Book is not available.";
-            if (reservation != null)
+            if (reservation != null && customer.CustomerID != reservation.Customer.CustomerID)
             {
                 return "Book is reserved by another customer.";
             }   
