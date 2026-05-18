@@ -156,7 +156,7 @@ namespace Libra
                     {
 
                         lateFee = CalculateOverDueFee(dueDate);
-                        string bookTitle = books.Find(book => book.Id == bookId).Id.ToString();
+                        string bookTitle = books.Find(book => book.Id == bookId).Title;
                         overDueList.Add(
                                 new OverDue(bookTitle, customer.Name, lateFee)
                             );
