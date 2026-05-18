@@ -21,12 +21,12 @@
         <Label Content="Customer Window" HorizontalAlignment="Left" Height="54" Margin="2,-77,0,0" VerticalAlignment="Top" Width="233" Grid.Column="1"/>
         <StackPanel x:Name="StackPanel2" Grid.Column="1" HorizontalAlignment="Left" Height="295" Grid.Row="1" VerticalAlignment="Top" Width="260" Margin="227,10,0,0">
             <Label x:Name="NameLabel" Content="Find Customer" Height="25" Width="142" FontSize="12"/>
-            <TextBox x:Name="FindCustomerTextBox" Height="41" TextWrapping="Wrap" Width="237"/>
+            <TextBox x:Name="FindCustomerTextBox" Height="41" TextWrapping="Wrap" Width="237" />
             <ListBox x:Name="CustomerListbox" DisplayMemberPath="Name" Height="100"   Width="236" SelectionChanged="CustomerListbox_SelectionChanged"/>
             <Label x:Name="EmptyLabel" Content="" Height="22" Width="233"/>
-            <Button x:Name="DeleteButton" Content="Delete Customer" FontSize="20" Height="42" Width="237" Click="DeleteButton_Click"/>
+            <Button x:Name="DeleteButton" Content="Delete Customer" FontSize="20" Height="42" Width="237" Click="DeleteButton_Click" IsEnabled="False"/>
             <Label x:Name="SpacerLabel" Content="Label" Height="7" Width="233"/>
-            <Button x:Name="LoanButton" Content="Open Loan Window" FontSize="20" Height="34" Width="235" Click="LoanButton_Click"/>
+            <Button x:Name="LoanButton" Content="Open Loan Window" FontSize="20" Height="34" Width="235" Click="LoanButton_Click" IsEnabled="False"/>
         </StackPanel>
         <StackPanel x:Name="StackPanel1" HorizontalAlignment="Left" Height="295" Grid.Row="1" VerticalAlignment="Center" Width="213" Margin="14,0,0,0" Grid.Column="1">
             <Label Content="Enter customer info" Height="27" Width="157"/>
@@ -34,7 +34,7 @@
             <TextBox x:Name="NewCustomerName" Height="23" TextWrapping="Wrap" Width="180" TextChanged="NewCustomerName_TextChanged"/>
             <Label x:Name="EmptyLabel1" Content="" Height="53" Width="179"/>
             <Label x:Name="CreateCustomerLabel" Content="Create Customer" Height="26" Width="176"/>
-            <Button x:Name="CreateCustomerButton" Content="Add Customer" FontSize="20" Height="42" Width="174" Click="CreateCustomerButton_Click"/>
+            <Button x:Name="CreateCustomerButton" Content="Add Customer" FontSize="20" Height="42" Width="174" Click="CreateCustomerButton_Click" IsEnabled="False"/>
             <Label x:Name="EmptyLabel2" Content="" Height="46" Width="171"/>
             <Label x:Name="CustomerCountLabel" Content="Customers registered: " Height="26" Width="162"/>
         </StackPanel>

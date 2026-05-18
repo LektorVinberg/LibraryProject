@@ -28,6 +28,11 @@ namespace Libra
             InitializeComponent();
             InitializeBookList();
             UpdateBookCountLabel();
+/*            ValidateTitle();
+            ValidateAuthor();
+            ValidateISBN();
+            AddBookButton.IsEnabled = (ValidateTitle() && ValidateAuthor() && ValidateISBN());
+*/
         }
 
         private void AddBookButton_Click(object sender, RoutedEventArgs e)
@@ -46,6 +51,10 @@ namespace Libra
                 _libraryLogic.AddBook(newBook);
                 InitializeBookList();
                 UpdateBookCountLabel();
+            }
+            else
+            {
+                AddBookButton.IsEnabled = false;
             }
         }
 
@@ -106,8 +115,9 @@ namespace Libra
 
         private void BookTitleTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ValidateTitle();
+            AddBookButton.IsEnabled = (ValidateTitle() & ValidateAuthor() & ValidateISBN());
         }
+        
 
         private bool ValidateTitle()
         {
@@ -126,7 +136,7 @@ namespace Libra
 
         private void BookAuthorTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ValidateAuthor();
+            AddBookButton.IsEnabled = (ValidateTitle() & ValidateAuthor() & ValidateISBN());
         }
 
         private bool ValidateAuthor()
@@ -146,7 +156,7 @@ namespace Libra
 
         private void BookISBNTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ValidateISBN();
+            AddBookButton.IsEnabled = (ValidateTitle() & ValidateAuthor() & ValidateISBN());
         }
 
         private bool ValidateISBN()
@@ -171,6 +181,11 @@ namespace Libra
             ISBNLabel.Content = "ISBN";
             ISBNLabel.Foreground = System.Windows.Media.Brushes.Black;
             return true;
+        }
+
+        private void BookListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DeleteButton.IsEnabled = BookListBox.SelectedItem != null;
         }
     }
 }
