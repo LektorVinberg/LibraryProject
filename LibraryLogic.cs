@@ -90,7 +90,12 @@ namespace Libra
                 customers.RemoveAt(customerIndex);
             }
         }
-
+        /// <summary>
+        /// If available, loans book to customer.
+        /// </summary>
+        /// <param name="isbn">ISBN of book</param>
+        /// <param name="customerId">Customer ID</param>
+        /// <returns>String message indicating if loan was successful or why it failed</returns>
         internal string LoanBook(string isbn, Guid customerId)
         {
             var book = books.FirstOrDefault(b => b.ISBN == isbn);
@@ -103,13 +108,19 @@ namespace Libra
             if (reservation != null && customer.CustomerID != reservation.Customer.CustomerID)
             {
                 return "Book is reserved by another customer.";
-            }   
+            }
             book.SetStatus(BookState.OnLoan);
             customer.AddLoan(book);
             return "Book loaned successfully.";
         }
-        
-    
+
+        /// <summary>
+        /// Returns book loaned by customer, if both exist.
+        /// </summary>
+        /// <param name="isbn">ISBN of book</param>
+        /// <param name="customerId">Customer ID</param>
+        /// <returns>String message indicating if return was successful or why it failed</returns>        
+
         internal string ReturnBook(string isbn, Guid customerId)
         {
             var book = books.FirstOrDefault(b => b.ISBN == isbn);
@@ -128,18 +139,13 @@ namespace Libra
             }
 
             return "This book was not loaned to this customer.";
-
-
-            //var book = books.FirstOrDefault(b => b.ISBN == isbn);
-            //var customer = customers.FirstOrDefault(c => c.CustomerID == customerId);
-            //if (book == null) return "Book not found.";
-            //if (customer == null) return "Customer not found.";
-            //// Check ISBN because the list is a copy when you deserialize
-            //if (!customer.LoanedBooks.Any(b => b.ISBN == isbn)) return "This book was not loaned to this customer.";
-            //    book.SetStatus(BookState.Available);
-            //customer.RemoveLoan(book);
         }
 
+
+        /// <summary>
+        /// Find books that have not been returned on due date
+        /// </summary>
+        /// <returns>List containing Overdue objects</returns>
         public List<OverDue> FindOverDue()
         {
             List<OverDue> overDueList = new List<OverDue>();
@@ -172,7 +178,12 @@ namespace Libra
             return timeSpan.Seconds * LATE_FEE_PER_DAY;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="isbn"></param>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         internal string ReserveBook(string isbn, Guid customerId)
         {
             var book = books.FirstOrDefault(b => b.ISBN == isbn);
@@ -201,6 +212,13 @@ namespace Libra
             return reservations;
         }
 
+        /// <summary>
+        /// Remove customers book reservation.
+        /// Updates reservation queue.
+        /// </summary>
+        /// <param name="isbn">ISBN of book</param>
+        /// <param name="customerId">Customer ID</param>
+        /// <returns>String message indicating if reservation was cancelled or if it was not found</returns>
         internal string CancelReservation(string isbn, Guid customerId)
         {
             var reservation = reservations.FirstOrDefault(r => r.Book.ISBN == isbn && r.Customer.CustomerID == customerId);
@@ -215,6 +233,9 @@ namespace Libra
             return "Reservation cancelled successfully.";
         }
 
+        /// <summary>
+        /// Persistent layer of customer, books and reservations
+        /// </summary>
         internal void BackupLists()
         {
             var options = new JsonSerializerOptions
@@ -222,7 +243,7 @@ namespace Libra
                 WriteIndented = true,
                 Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
             };
-            // Implement backup logic here, e.g., save books and customers to a file or database
+
             if (customers.Count > 0)
             {
                 string jsonString = JsonSerializer.Serialize(customers);
@@ -241,6 +262,9 @@ namespace Libra
 
         }
 
+        /// <summary>
+        /// Retrieves customers, books, and reservations from persistent storage.
+        /// </summary>
         internal void RetrieveLists()
         {
             // Implement restore logic here, e.g., load books and customers from a file or database
@@ -261,6 +285,12 @@ namespace Libra
             }
         }
 
+        /// <summary>
+        /// Function to find book by string query
+        /// </summary>
+        /// <param name="query">Search string</param>
+        /// <param name="mode">Title/Author/ISBN</param>
+        /// <returns>List containing all books found matching query</returns>
         internal List<Book> SearchBooks(string query, string mode)
         {
             List<Book> result = new List<Book>();
@@ -301,8 +331,11 @@ namespace Libra
             return result;
         }
 
-        // Generate a report showing borrowed books
-        // and the customers who borrowed them
+        /// <summary>
+        /// Generate a report showing borrowed books
+        /// and the customers who borrowed them
+        /// </summary>
+        /// <returns>A list of formatted string, containing book title, customer name, and loan date.</returns>
         internal List<string> GetLoanReport()
         {
             List<string> report = new List<string>();
